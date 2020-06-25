@@ -36,24 +36,24 @@ public class Fase extends JPanel implements ActionListener, KeyListener{
 	public void paint(Graphics g) {
 		Graphics2D graficos = (Graphics2D) g;
 		graficos.drawImage(fundo, 0, 0, null);
-		graficos.drawImage(personagem.getImagem(), personagem.getX(), personagem.getY(), this);
+		//graficos.drawImage(personagem.getImagem(), personagem.getX(), personagem.getY(), this);
 		g.dispose();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		personagem.atualizar();
+		//personagem.atualizar();
 		repaint();
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		personagem.mover(e);
+		//personagem.mover(e);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		personagem.parar(e);
+		//personagem.parar(e);
 	}
 
 	@Override
