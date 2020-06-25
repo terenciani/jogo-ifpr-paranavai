@@ -17,7 +17,9 @@ public class Fase extends JPanel implements ActionListener, KeyListener{
 	private Image fundo;
 	private Personagem personagem;
 	private Timer timer;
+	private ArrayList<Inimigo> inimigos;
 	
+	private static int QTDE_DE_INIMIGOS = 40;
 	private static final int LARGURA_DA_TELA = 938;
 	
 	public Fase(){
@@ -30,10 +32,23 @@ public class Fase extends JPanel implements ActionListener, KeyListener{
 		personagem = new Personagem();
 		personagem.carregar();
 		
+		inicializaInimigos();
+		
 		addKeyListener(this);
 		
 		timer = new Timer(5, this);
 		timer.start();
+	}
+	
+	public void inicializaInimigos() {
+		inimigos = new ArrayList<Inimigo>();
+		
+		for (int i = 0; i < QTDE_DE_INIMIGOS; i++) {
+			int x = (int)(Math.random() * 8000 + 1024);
+			int y = (int)(Math.random() * 650 + 30);
+			Inimigo inimigo = new Inimigo(x, y);
+			inimigos.add(inimigo);
+		}
 	}
 	
 	public void paint(Graphics g) {
@@ -47,6 +62,12 @@ public class Fase extends JPanel implements ActionListener, KeyListener{
 			Tiro tiro = tiros.get(i);
 			tiro.carregar();
 			graficos.drawImage(tiro.getImagem(), tiro.getX(), tiro.getY(), this);
+		}
+		
+		for (int i = 0; i < inimigos.size(); i++) {
+			Inimigo inimigo = inimigos.get(i);
+			inimigo.carregar();
+			graficos.drawImage(inimigo.getImagem(), inimigo.getX(), inimigo.getY(), this);
 		}
 		
 		g.dispose();
@@ -64,6 +85,15 @@ public class Fase extends JPanel implements ActionListener, KeyListener{
 				tiros.remove(tiro);
 			}else {
 				tiro.atualizar();
+			} 
+		}
+		
+		for (int i = 0; i < inimigos.size(); i++) {
+			Inimigo inimigo = inimigos.get(i);
+			if(inimigo.getX() < 0) {
+				inimigos.remove(inimigo);
+			}else {
+				inimigo.atualizar();
 			} 
 		}
 		

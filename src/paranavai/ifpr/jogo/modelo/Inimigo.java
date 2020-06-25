@@ -27,7 +27,7 @@ public class Inimigo {
 	}
 	
 	public void atualizar() {
-		this.x = this.x + velocidade;
+		this.x = this.x - velocidade;
 	}
 
 	public Image getImagem() {
